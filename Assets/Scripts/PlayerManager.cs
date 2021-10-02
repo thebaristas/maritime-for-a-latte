@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public float moveSpeed = 1f;
+  public float smoothTime = 0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        float horizontalMove = Input.GetAxis("Mouse X");
-        float verticalMove = Input.GetAxis("Mouse Y");
+  Vector3 m_handVelocity;
 
-        transform.Translate(new Vector2(moveSpeed * horizontalMove, moveSpeed * verticalMove), Space.Self); 
-    }
+  void Start()
+  {
+    transform.position = getMousePositionWorld();
+  }
+
+  // Update is called once per frame
+  void Update()
+  {
+    transform.position = Vector3.SmoothDamp(transform.position, getMousePositionWorld(), ref m_handVelocity, smoothTime);
+  }
+
+  Vector2 getMousePositionWorld()
+  {
+    Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    return pos;
+  }
 }
