@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: playerManager
       value: 
       objectReference: {fileID: 651232511}
+    - target: {fileID: -966460153841306444, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: dropCooldownSeconds
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1203130151006641209, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -197,6 +201,26 @@ PrefabInstance:
     - target: {fileID: 5445183447837224086, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445183447837224086, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662992789916775325, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662992789916775325, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662992789916775325, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662992789916775325, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
