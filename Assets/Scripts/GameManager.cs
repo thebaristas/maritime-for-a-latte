@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class GameSettings {
-    public int milknessGridSize = 256;
-    public float dropCooldownSeconds = 0.1f; // How often the latte data is updated
+public class GameSettings
+{
+    public int milknessGridSize = 32;
+    public float dropCooldownSeconds = 0.001f; // How often the latte data is updated
     public byte dropIntensity = 3; // How intense is each drop
+    public int dropSizeFactor = 3; // A scalar controlling the maximum size of each drop
 }
 
 public class GameManager : MonoBehaviour
@@ -16,6 +18,9 @@ public class GameManager : MonoBehaviour
     public GameSettings gameSettings;
     public PlayerManager playerManager;
     public LatteRenderer latteRenderer;
+
+    private readonly byte[,] c_dripKernel = new byte[1,1] { { 1 } };
+
     private Vector2 m_scale = new Vector2(1f,1f);
     private byte[,] m_milknessGrid;
     float m_nextDropTimestamp = 0f;
@@ -46,17 +51,25 @@ public class GameManager : MonoBehaviour
         if (m_nextDropTimestamp <= Time.time)
         {
             Vector2 pos = playerManager.transform.position - transform.position;
-            var x = Mathf.FloorToInt(pos.x * gameSettings.milknessGridSize / m_scale.x);
-            var y = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
-            if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
+            int gridX = Mathf.FloorToInt(pos.x * gameSettings.milknessGridSize / m_scale.x);
+            int gridY = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
+
+            int kOffsetX = (c_dripKernel.GetLength(0) - 1) / 2;
+            int kOffsetY = (c_dripKernel.GetLength(1) - 1) / 2;
+
+            for (int kX = -kOffsetX; kX <= kOffsetX; kX++)
             {
-                if (m_milknessGrid[x, y] < byte.MaxValue)
+                for (int kY = -kOffsetY; kY <= kOffsetY; kY++)
                 {
-                    m_milknessGrid[x, y] += gameSettings.dropIntensity;
+                    int x = gridX + kX, y = gridY+ kY;
+                    if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
+                    {
+                        int newValue = m_milknessGrid[x, y] + gameSettings.dropIntensity * c_dripKernel[kX + kOffsetX, kY + kOffsetY];
+                        m_milknessGrid[x, y] = (byte) Mathf.Min(newValue, byte.MaxValue);
+                    }
                 }
-                m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
             }
-            // TODO: deal with mouse out of bounds
+            m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
         }
     }
 }
