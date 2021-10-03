@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
   void Start()
   {
     transform.position = getMousePositionWorld();
+    Cursor.visible = false;
   }
 
   // Update is called once per frame
@@ -26,11 +27,11 @@ public class PlayerManager : MonoBehaviour
         pouringAnimator.SetBool("isPouring", Input.GetButton("Fire1"));
         if (Input.GetButton("Fire1") && dropMilk != null && pouringAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pouring"))
         {
-        dropMilk();
+            dropMilk();
         }
         if (Input.GetButtonDown("Jump") && completeCoffee != null)
         {
-        completeCoffee();
+            completeCoffee();
         }
     }
   }
