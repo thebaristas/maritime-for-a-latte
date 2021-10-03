@@ -19,12 +19,9 @@ public class GameManager : MonoBehaviour
     public PlayerManager playerManager;
     public LatteRenderer latteRenderer;
 
-    private readonly byte[,] c_dripKernel = new byte[1,1] { { 1 } };
-
     private Vector2 m_scale = new Vector2(1f,1f);
     private byte[,] m_milknessGrid;
     float m_nextDropTimestamp = 0f;
-
 
     void Awake()
     {
@@ -51,24 +48,15 @@ public class GameManager : MonoBehaviour
         if (m_nextDropTimestamp <= Time.time)
         {
             Vector2 pos = playerManager.transform.position - transform.position;
-            int gridX = Mathf.FloorToInt(pos.x * gameSettings.milknessGridSize / m_scale.x);
-            int gridY = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
+            int x = Mathf.FloorToInt(pos.x * gameSettings.milknessGridSize / m_scale.x);
+            int y = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
 
-            int kOffsetX = (c_dripKernel.GetLength(0) - 1) / 2;
-            int kOffsetY = (c_dripKernel.GetLength(1) - 1) / 2;
-
-            for (int kX = -kOffsetX; kX <= kOffsetX; kX++)
+            if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
             {
-                for (int kY = -kOffsetY; kY <= kOffsetY; kY++)
-                {
-                    int x = gridX + kX, y = gridY+ kY;
-                    if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
-                    {
-                        int newValue = m_milknessGrid[x, y] + gameSettings.dropIntensity * c_dripKernel[kX + kOffsetX, kY + kOffsetY];
-                        m_milknessGrid[x, y] = (byte) Mathf.Min(newValue, byte.MaxValue);
-                    }
-                }
+                int newMilkness = m_milknessGrid[x, y] + gameSettings.dropIntensity;
+                m_milknessGrid[x, y] = (byte) Mathf.Min(newMilkness, byte.MaxValue);
             }
+
             m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
         }
     }

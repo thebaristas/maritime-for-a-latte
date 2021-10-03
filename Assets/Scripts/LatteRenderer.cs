@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class LatteRenderer : MonoBehaviour {
 
+    public Texture2D texture;
+
     private readonly Color32 c_backgroundColour = new Color32(0, 0, 0, 0);
     private readonly Color32 c_milkColour = new Color32(240, 230, 190, 240);
-
-    public Texture2D texture;
 
     public void RenderLatte(byte[,] array)
     {
@@ -40,13 +40,17 @@ public class LatteRenderer : MonoBehaviour {
         return val * textureVal / maxVal;
     }
 
+    private int ComputeRadius(byte intensity)
+    {
+        return (int) Mathf.Sqrt(GameManager.instance.gameSettings.dropSizeFactor * intensity);
+    }
+
     private void DrawCell(int x, int y, int maxX, int maxY, byte intensity)
     {
         int cX = TextureTransform(x, maxX, texture.width), cY = TextureTransform(y, maxY, texture.height);
         if (intensity > 0)
         {
-            int radius = (int) Mathf.Sqrt(GameManager.instance.gameSettings.dropSizeFactor * intensity);
-            DrawCircle(c_milkColour, cX, cY, radius);
+            DrawCircle(c_milkColour, cX, cY, ComputeRadius(intensity));
         }
     }
 
