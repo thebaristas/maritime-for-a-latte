@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
                 total += 1;
             }
         }
-        return (float)success/(float)total;
+        return Mathf.Sqrt((float)success/(float)total); // sqrt to help the player :D
     }
 
     private void UpdateScore()
