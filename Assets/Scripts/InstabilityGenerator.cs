@@ -5,28 +5,30 @@ using UnityEngine;
 public class InstabilityGenerator : MonoBehaviour
 {
   [Header("Rocking Settings")]
-  public float maxRockingOffset = 4;
-  public float maxRockingVelocity = 10;
-  public float rockingIntervalMin = 2;
-  public float rockingIntervalMax = 5;
+  public float maxRockingOffset = 3f;
+  public float rockingIntervalMin = 0.5f;
+  public float rockingIntervalMax = 2f;
 
   [Header("Shaking Settings")]
-  public float shakingIntervalMin = 2;
-  public float shakingIntervalMax = 5;
-  public float shakingDuration = 0.5f;
-  public float shakingFrequency = 100;
+  public float shakingIntervalMin = 1f;
+  public float shakingIntervalMax = 8f;
+  public float shakingDurationMin = 0.25f;
+  public float shakingDurationMax = 2f;
   public float shakingAmplitude = 0.1f;
 
-  Vector2 m_rockingTarget;
-  float m_rockingInterval;
-  float m_rockingTimer;
-  Vector2 m_rockingVelocity;
-
-  bool m_isShaking;
-  float m_shakingTimer;
+  private Vector2 m_rockingTarget;
+  private float m_rockingInterval;
+  private float m_rockingTimer;
+  private Vector2 m_rockingVelocity;
+  private Vector2 m_starting_position;
+  private Vector2 m_canonical_position;
+  private bool m_isShaking;
+  private float m_shakingTimer;
 
   void Start()
   {
+    m_starting_position = m_canonical_position = transform.position;
+
     m_rockingTimer = m_rockingInterval = getRockingInterval();
     m_rockingTarget = getRockingTarget();
 
@@ -37,7 +39,8 @@ public class InstabilityGenerator : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    transform.position = getShakingOffset() + Vector2.SmoothDamp(transform.position, m_rockingTarget, ref m_rockingVelocity, m_rockingInterval);
+    m_canonical_position = Vector2.SmoothDamp(m_canonical_position, m_rockingTarget, ref m_rockingVelocity, m_rockingInterval);
+    transform.position = m_canonical_position + getShakingOffset();
 
     m_rockingTimer -= Time.deltaTime;
     m_shakingTimer -= Time.deltaTime;
@@ -46,25 +49,23 @@ public class InstabilityGenerator : MonoBehaviour
     {
       m_rockingTimer = m_rockingInterval = getRockingInterval();
       m_rockingTarget = getRockingTarget();
-      Debug.Log(m_rockingInterval);
-      Debug.Log(m_rockingTarget);
     }
 
     if (m_shakingTimer <= 0)
     {
-      if (m_isShaking)
-      {
-        // Stop shaking
-        m_isShaking = false;
-        m_shakingTimer = getShakingInterval();
-        GetComponent<Rigidbody2D>().velocity = m_rockingVelocity;
-      }
-      else
-      {
-        m_isShaking = true;
-        m_shakingTimer = shakingDuration;
-      }
+      m_shakingTimer = m_isShaking ? getShakingInterval() : getShakingDuration();
+      m_isShaking = !m_isShaking;
     }
+  }
+
+  Vector2 getRockingTarget()
+  {
+    return m_starting_position + new Vector2(Random.Range(-maxRockingOffset, maxRockingOffset), Random.Range(-maxRockingOffset, maxRockingOffset));
+  }
+
+  float getRockingInterval()
+  {
+    return Random.Range(rockingIntervalMin, rockingIntervalMax);
   }
 
   float getShakingInterval()
@@ -72,20 +73,14 @@ public class InstabilityGenerator : MonoBehaviour
     return Random.Range(shakingIntervalMin, shakingIntervalMax);
   }
 
+  float getShakingDuration()
+  {
+    return Random.Range(shakingDurationMin, shakingDurationMax);
+  }
+
   Vector2 getShakingOffset()
   {
     if (!m_isShaking) return Vector2.zero;
-    var shakingOffset = shakingAmplitude * new Vector2(Mathf.Sin(2 * Mathf.PI * shakingFrequency * Time.time), 0);
-    return shakingOffset;
-  }
-
-  Vector2 getRockingTarget()
-  {
-    return new Vector2(Random.Range(-maxRockingOffset, maxRockingOffset), 0);
-  }
-
-  float getRockingInterval()
-  {
-    return Random.Range(rockingIntervalMin, rockingIntervalMax);
+    return new Vector2(Random.Range(-shakingAmplitude, shakingAmplitude), Random.Range(-shakingAmplitude, shakingAmplitude));
   }
 }
