@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public PlayerManager playerManager;
     public LatteRenderer latteRenderer;
     private Vector2 m_scale = new Vector2(1f,1f);
-    private byte[,] m_milkGrid;
+    private byte[,] m_milknessGrid;
     float m_nextDropTimestamp = 0f;
 
 
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_milkGrid = new byte[gameSettings.milknessGridSize, gameSettings.milknessGridSize];
+        m_milknessGrid = new byte[gameSettings.milknessGridSize, gameSettings.milknessGridSize];
         playerManager.fire = DropMilk;
         m_scale = transform.localScale;
         m_nextDropTimestamp = Time.time;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        latteRenderer.RenderLatte(m_milkGrid);
+        latteRenderer.RenderLatte(m_milknessGrid);
     }
 
     public void DropMilk()
@@ -50,9 +50,9 @@ public class GameManager : MonoBehaviour
             var y = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
             if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
             {
-                if (m_milkGrid[x, y] < byte.MaxValue)
+                if (m_milknessGrid[x, y] < byte.MaxValue)
                 {
-                    m_milkGrid[x, y] += gameSettings.dropIntensity;
+                    m_milknessGrid[x, y] += gameSettings.dropIntensity;
                 }
                 m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
             }
