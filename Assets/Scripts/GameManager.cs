@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class GameSettings
 {
-    public float accuracyThreshold = 0.8f;
+    public float accuracyThreshold = 0.4f;
     public int milknessGridSize = 32;
     public float dropCooldownSeconds = 0.001f; // How often the latte data is updated
     public byte dropIntensity = 3; // How intense is each drop
@@ -20,11 +20,13 @@ public class GameManager : MonoBehaviour
     public PlayerManager playerManager;
     public LatteRenderer latteRenderer;
     public ShapeManager shapeManager;
-
+    public int score { get; private set; } = 0;
+    public float latestAccuracy { get; private set; } = 0f;
+    public float remainingTime { get; private set; } = 60f;
+    public bool isPlaying { get; private set; } = false;
     private Vector2 m_scale = new Vector2(1f,1f);
     private byte[,] m_milknessGrid;
     private float m_nextDropTimestamp = 0f;
-    private int m_coffeeScore = 0;
 
     void Awake()
     {
@@ -39,12 +41,21 @@ public class GameManager : MonoBehaviour
         playerManager.completeCoffee = CompleteCoffee;
         m_scale = transform.localScale;
         m_nextDropTimestamp = Time.time;
+        isPlaying = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        latteRenderer.RenderLatte(m_milknessGrid);
+        if (remainingTime <= 0f)
+        {
+            isPlaying = false;
+        }
+        if (isPlaying)
+        {
+            latteRenderer.RenderLatte(m_milknessGrid);
+            remainingTime -= Time.deltaTime;
+        }
     }
 
     public void DropMilk()
@@ -80,22 +91,29 @@ public class GameManager : MonoBehaviour
         int total = 0;
         for (int i = 0; i < Mathf.Min(shapeOpacityArray.Length, latteRendererOpacityArray.Length); i++)
         {
-            if (Mathf.Abs(shapeOpacityArray[i] - latteRendererOpacityArray[i]) < 0.1f)
+            var shapeOpacity = shapeOpacityArray[i];
+            var latteOpacity = latteRendererOpacityArray[i];
+            if (shapeOpacity > 0 || latteOpacity > 0)
             {
-                success += 1;
+                if (Mathf.Abs(shapeOpacity - latteOpacity) < (byte.MaxValue - byte.MinValue)/2)
+                {
+                    success += 1;
+                }
+                total += 1;
             }
-            total += 1;
         }
-        return success / total;
+        return (float)success/(float)total;
     }
 
     private void UpdateScore()
     {
-        var accuracy = ComputeAccuracy();
-        if (accuracy >= gameSettings.accuracyThreshold)
+        latestAccuracy = ComputeAccuracy();
+        Debug.Log(latestAccuracy);
+        if (latestAccuracy >= gameSettings.accuracyThreshold)
         {
-            m_coffeeScore += 1;
+            score += 1;
         }
+        Debug.Log(score);
     }
 
     private void ReinitialiseCoffee()

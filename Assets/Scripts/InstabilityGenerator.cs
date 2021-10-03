@@ -39,6 +39,11 @@ public class InstabilityGenerator : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    if (!GameManager.instance.isPlaying)
+    {
+      return;
+    }
+    
     m_canonical_position = Vector2.SmoothDamp(m_canonical_position, m_rockingTarget, ref m_rockingVelocity, m_rockingInterval);
     transform.position = m_canonical_position + getShakingOffset();
 

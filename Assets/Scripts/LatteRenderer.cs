@@ -68,7 +68,7 @@ public class LatteRenderer : MonoBehaviour {
         }
     }
 
-    public float[] GetOpacityArray()
+    public byte[] GetOpacityArray()
     {
         return Utils.TextureUtils.GetOpacityArray(texture);
     }

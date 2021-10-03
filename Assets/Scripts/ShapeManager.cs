@@ -34,7 +34,7 @@ public class ShapeManager : MonoBehaviour
         m_spriteRenderer.sprite = m_sprites[m_currentSpriteIndex];
     }
 
-    public float[] GetOpacityArray()
+    public byte[] GetOpacityArray()
     {
         return Utils.TextureUtils.GetOpacityArray(m_spriteRenderer.sprite.texture);
     }

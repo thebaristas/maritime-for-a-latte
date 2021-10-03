@@ -19,15 +19,18 @@ public class PlayerManager : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    transform.position = getMousePositionWorld();
-    if (Input.GetButton("Fire1") && dropMilk != null)
-    {
-        dropMilk();
-    }
-    if (Input.GetButtonDown("Jump") && completeCoffee != null)
-    {
-        completeCoffee();
-    }
+      if (GameManager.instance.isPlaying)
+      {
+        transform.position = getMousePositionWorld();
+        if (Input.GetButton("Fire1") && dropMilk != null)
+        {
+            dropMilk();
+        }
+        if (Input.GetButtonDown("Jump") && completeCoffee != null)
+        {
+            completeCoffee();
+        }
+      }
   }
 
   Vector2 getMousePositionWorld()
