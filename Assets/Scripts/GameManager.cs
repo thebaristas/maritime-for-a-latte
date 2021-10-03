@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     float m_nextDropTimestamp = 0f;
 
     public PlayerManager playerManager;
+    public LatteRenderer latteRenderer;
     public float dropCooldownSeconds = 0.1f; // How often the latte data is updated
     public byte dropIntensity = 3; // How intense is each drop
 
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: trigger rendering
+        latteRenderer.RenderLatte(m_milkGrid);
     }
 
     public void DropMilk() 
@@ -43,7 +44,6 @@ public class GameManager : MonoBehaviour
                     m_milkGrid[x, y] += dropIntensity;
                 }
                 m_nextDropTimestamp = Time.time + dropCooldownSeconds;
-                Debug.Log(m_milkGrid[x, y]); // TODO: remove log once we have visual feedback
             }
             // TODO: deal with mouse out of bounds
         }
