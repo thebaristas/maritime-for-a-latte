@@ -6,29 +6,28 @@ public delegate void Fire();
 
 public class PlayerManager : MonoBehaviour
 {
-    public Fire fire; // set in GameManager
-    public float positionSmoothTime = 0f;
-    Vector3 m_handVelocity;
-    
-    void Start()
-    {
-        transform.position = getMousePositionWorld();
+  public Fire fire; // set in GameManager
 
-    }
+  Vector3 m_handVelocity;
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position = getMousePositionWorld();
-        if (Input.GetButton("Fire1") && fire != null)
-        {
-            fire();
-        }
-    }
+  void Start()
+  {
+    transform.position = getMousePositionWorld();
+  }
 
-    Vector2 getMousePositionWorld()
+  // Update is called once per frame
+  void Update()
+  {
+    transform.position = getMousePositionWorld();
+    if (Input.GetButton("Fire1") && fire != null)
     {
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return pos;
+      fire();
     }
+  }
+
+  Vector2 getMousePositionWorld()
+  {
+    Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    return pos;
+  }
 }
