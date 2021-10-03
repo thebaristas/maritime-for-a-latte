@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LatteRenderer : MonoBehaviour {
 
-    private const Color32 c_coffeeColour = new Color32(75, 55, 30, 255);
-    private const Color32 c_milkColour = new Color32(240, 230, 190, 255);
+    private readonly Color32 c_coffeeColour = new Color32(75, 55, 30, 255);
+    private readonly Color32 c_milkColour = new Color32(240, 230, 190, 255);
 
     public Texture2D texture;
 
