@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1764854082299938314}
   - component: {fileID: 5434303552908132603}
+  - component: {fileID: 2220513042611511946}
   m_Layer: 0
   m_Name: Cursor
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3810636605236483393}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -3.88, z: 0}
+  m_LocalPosition: {x: 0.595, y: -4.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5345092455886135233}
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 181260713
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 199dbf7097704754ba2782259071a088, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 299e4b2b1152b734fbe899cb21a18f02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,6 +84,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2220513042611511946
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810636605236483393}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 372958659845f4a43bf9f6f7b369b677, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4805143566681459613
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,3 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1cf2679e82e4bb49f394fb9141530a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pouringAnimator: {fileID: 2220513042611511946}
