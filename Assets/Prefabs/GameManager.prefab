@@ -429,10 +429,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRockingOffset: 3
-  rockingIntervalMin: 0.5
-  rockingIntervalMax: 2
+  rockingIntervalMin: 1
+  rockingIntervalMax: 3
   shakingIntervalMin: 1
-  shakingIntervalMax: 8
+  shakingIntervalMax: 10
   shakingDurationMin: 0.25
   shakingDurationMax: 2
   shakingAmplitude: 0.1

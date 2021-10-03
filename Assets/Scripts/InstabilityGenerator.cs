@@ -6,12 +6,12 @@ public class InstabilityGenerator : MonoBehaviour
 {
   [Header("Rocking Settings")]
   public float maxRockingOffset = 3f;
-  public float rockingIntervalMin = 0.5f;
-  public float rockingIntervalMax = 2f;
+  public float rockingIntervalMin = 1f;
+  public float rockingIntervalMax = 3f;
 
   [Header("Shaking Settings")]
   public float shakingIntervalMin = 1f;
-  public float shakingIntervalMax = 8f;
+  public float shakingIntervalMax = 10f;
   public float shakingDurationMin = 0.25f;
   public float shakingDurationMax = 2f;
   public float shakingAmplitude = 0.1f;
