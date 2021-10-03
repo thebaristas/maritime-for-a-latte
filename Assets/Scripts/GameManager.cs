@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private Vector2 m_scale = new Vector2(1f,1f);
     private byte[,] m_milkGrid;
     public PlayerManager playerManager;
+    public LatteRenderer latteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +22,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: trigger rendering
+        latteRenderer.RenderLatte(m_milkGrid);
     }
 
-    public void PourMilk() 
+    public void PourMilk()
     {
         Vector2 pos = playerManager.transform.position - transform.position;
         var x = Mathf.FloorToInt(pos.x * c_resolution / m_scale.x);
@@ -32,7 +33,6 @@ public class GameManager : MonoBehaviour
         if (x >= 0 && x < c_milkGridSize && y >= 0 && y < c_milkGridSize)
         {
             m_milkGrid[x, y] += 1;
-            Debug.Log(m_milkGrid[x, y]); // TODO: remove log once we have visual feedback
         }
         // TODO: deal with mouse out of bounds
     }
