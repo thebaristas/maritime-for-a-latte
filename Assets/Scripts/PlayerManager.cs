@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 {
   public Action dropMilk; // set in GameManager
   public Action completeCoffee; // set in GameManager
+  public Animator pouringAnimator;
 
   Vector3 m_handVelocity;
 
@@ -20,13 +21,14 @@ public class PlayerManager : MonoBehaviour
   void Update()
   {
     transform.position = getMousePositionWorld();
-    if (Input.GetButton("Fire1") && dropMilk != null)
+    pouringAnimator.SetBool("isPouring", Input.GetButton("Fire1"));
+    if (Input.GetButton("Fire1") && dropMilk != null && pouringAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pouring"))
     {
-        dropMilk();
+      dropMilk();
     }
     if (Input.GetButtonDown("Jump") && completeCoffee != null)
     {
-        completeCoffee();
+      completeCoffee();
     }
   }
 
