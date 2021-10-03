@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: LatteLayer
+    uniqueID: 1654666003
+    locked: 0
+  - name: PlayerLayer
+    uniqueID: 181260713
+    locked: 0
