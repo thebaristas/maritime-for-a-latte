@@ -1,23 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class GameSettings {
+    public int milknessGridSize = 256;
+    public float dropCooldownSeconds = 0.1f; // How often the latte data is updated
+    public byte dropIntensity = 3; // How intense is each drop
+}
+
 public class GameManager : MonoBehaviour
 {
-    const int c_milkGridSize = 256;
+    public static GameManager instance;
+    public GameSettings gameSettings;
+    public PlayerManager playerManager;
+    public LatteRenderer latteRenderer;
     private Vector2 m_scale = new Vector2(1f,1f);
     private byte[,] m_milkGrid;
     float m_nextDropTimestamp = 0f;
 
-    public PlayerManager playerManager;
-    public LatteRenderer latteRenderer;
-    public float dropCooldownSeconds = 0.1f; // How often the latte data is updated
-    public byte dropIntensity = 3; // How intense is each drop
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_milkGrid = new byte[c_milkGridSize, c_milkGridSize];
+        m_milkGrid = new byte[gameSettings.milknessGridSize, gameSettings.milknessGridSize];
         playerManager.fire = DropMilk;
         m_scale = transform.localScale;
         m_nextDropTimestamp = Time.time;
@@ -29,20 +41,20 @@ public class GameManager : MonoBehaviour
         latteRenderer.RenderLatte(m_milkGrid);
     }
 
-    public void DropMilk() 
+    public void DropMilk()
     {
         if (m_nextDropTimestamp <= Time.time)
         {
             Vector2 pos = playerManager.transform.position - transform.position;
-            var x = Mathf.FloorToInt(pos.x * c_milkGridSize / m_scale.x);
-            var y = Mathf.FloorToInt(pos.y * c_milkGridSize / m_scale.y);
-            if (x >= 0 && x < c_milkGridSize && y >= 0 && y < c_milkGridSize)
+            var x = Mathf.FloorToInt(pos.x * gameSettings.milknessGridSize / m_scale.x);
+            var y = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
+            if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
             {
-                if (m_milkGrid[x, y] < byte.MaxValue) 
+                if (m_milkGrid[x, y] < byte.MaxValue)
                 {
-                    m_milkGrid[x, y] += dropIntensity;
+                    m_milkGrid[x, y] += gameSettings.dropIntensity;
                 }
-                m_nextDropTimestamp = Time.time + dropCooldownSeconds;
+                m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
             }
             // TODO: deal with mouse out of bounds
         }
