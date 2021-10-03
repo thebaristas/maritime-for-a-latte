@@ -272,6 +272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3272981985797226924}
   - component: {fileID: -966460153841306444}
+  - component: {fileID: 6994703386404413675}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -309,9 +310,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings:
+    accuracyThreshold: 0.8
     milknessGridSize: 32
     dropCooldownSeconds: 0.001
     dropIntensity: 3
     dropSizeFactor: 3
   playerManager: {fileID: 0}
-  latteRenderer: {fileID: 0}
+  latteRenderer: {fileID: 6994703386404413675}
+  shapeManager: {fileID: 8016862362786476245}
+--- !u!114 &6994703386404413675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445183447837224086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9211764e79542416d9e09c4f7081e270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 2800000, guid: 7d5d23db634d34b9b86e01a8848a3b11, type: 3}
