@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1654666003
   m_SortingLayer: 1
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 1b6bca547c74c44a3b17570278182057, type: 3}
   m_Color: {r: 0.29411766, g: 0.21568628, b: 0.11764706, a: 1}
   m_FlipX: 0
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1654666003
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 71186945fa622409c9ef54acb78c06fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -196,7 +196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3272981985797226924}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8016862362786476245
 MonoBehaviour:
@@ -250,9 +250,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1654666003
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: d373caf326ed24630997da5b4f0f4268, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.11764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -291,7 +291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3272981985797226924}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1203130151006641209
 SpriteRenderer:
@@ -376,8 +376,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7265420986595372325}
-  - {fileID: 6790835748100491394}
   - {fileID: 8662992789916775325}
+  - {fileID: 6790835748100491394}
   - {fileID: 1792955836155795392}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -429,10 +429,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRockingOffset: 3
-  rockingIntervalMin: 0.5
-  rockingIntervalMax: 2
+  rockingIntervalMin: 1
+  rockingIntervalMax: 3
   shakingIntervalMin: 1
-  shakingIntervalMax: 8
+  shakingIntervalMax: 10
   shakingDurationMin: 0.25
   shakingDurationMax: 2
   shakingAmplitude: 0.1
