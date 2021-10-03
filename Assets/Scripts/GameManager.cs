@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
             var latteOpacity = latteRendererOpacityArray[i];
             if (shapeOpacity > 0 || latteOpacity > 0)
             {
-                if (Mathf.Abs(shapeOpacity - latteOpacity) < (byte.MaxValue - byte.MinValue)/2)
+                if (Mathf.Abs(shapeOpacity - latteOpacity) < (byte.MaxValue/2))
                 {
                     success += 1;
                 }
