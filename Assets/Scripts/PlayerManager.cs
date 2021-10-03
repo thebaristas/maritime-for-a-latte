@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, getMousePositionWorld(), ref m_handVelocity, positionSmoothTime);
+        transform.position = getMousePositionWorld();
         if (Input.GetButton("Fire1") && fire != null)
         {
             fire();

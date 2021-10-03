@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    const int c_milkGridSize = 1024;
-    const float c_resolution = 1000f; // grid cells per World unit
+    const int c_milkGridSize = 256;
     private Vector2 m_scale = new Vector2(1f,1f);
     private byte[,] m_milkGrid;
     float m_nextDropTimestamp = 0f;
@@ -35,8 +34,8 @@ public class GameManager : MonoBehaviour
         if (m_nextDropTimestamp <= Time.time)
         {
             Vector2 pos = playerManager.transform.position - transform.position;
-            var x = Mathf.FloorToInt(pos.x * c_resolution / m_scale.x);
-            var y = Mathf.FloorToInt(pos.y * c_resolution / m_scale.y);
+            var x = Mathf.FloorToInt(pos.x * c_milkGridSize / m_scale.x);
+            var y = Mathf.FloorToInt(pos.y * c_milkGridSize / m_scale.y);
             if (x >= 0 && x < c_milkGridSize && y >= 0 && y < c_milkGridSize)
             {
                 if (m_milkGrid[x, y] < byte.MaxValue) 
