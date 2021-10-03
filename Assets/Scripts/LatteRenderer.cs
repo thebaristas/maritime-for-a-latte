@@ -23,7 +23,7 @@ public class LatteRenderer : MonoBehaviour {
         texture.Apply();
     }
 
-    private void ClearTexture()
+    public void ClearTexture()
     {
         Color32[] resetColourArray = texture.GetPixels32();
 
@@ -66,5 +66,10 @@ public class LatteRenderer : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public float[] GetOpacityArray()
+    {
+        return Utils.TextureUtils.GetOpacityArray(texture);
     }
 }

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void Fire();
+public delegate void Action();
 
 public class PlayerManager : MonoBehaviour
 {
-  public Fire fire; // set in GameManager
+  public Action dropMilk; // set in GameManager
+  public Action completeCoffee; // set in GameManager
 
   Vector3 m_handVelocity;
 
@@ -19,9 +20,13 @@ public class PlayerManager : MonoBehaviour
   void Update()
   {
     transform.position = getMousePositionWorld();
-    if (Input.GetButton("Fire1") && fire != null)
+    if (Input.GetButton("Fire1") && dropMilk != null)
     {
-      fire();
+        dropMilk();
+    }
+    if (Input.GetButtonDown("Jump") && completeCoffee != null)
+    {
+        completeCoffee();
     }
   }
 
