@@ -108,7 +108,6 @@ public class GameManager : MonoBehaviour
     private void UpdateScore()
     {
         latestAccuracy = ComputeAccuracy();
-        Debug.Log(latestAccuracy);
         if (latestAccuracy >= gameSettings.accuracyThreshold)
         {
             score += 1;
