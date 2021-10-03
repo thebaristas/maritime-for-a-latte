@@ -7,20 +7,20 @@ public delegate void Fire();
 public class PlayerManager : MonoBehaviour
 {
     public Fire fire; // set in GameManager
-    public float smoothTime = 0f;
-
+    public float positionSmoothTime = 0f;
     Vector3 m_handVelocity;
-
+    
     void Start()
     {
         transform.position = getMousePositionWorld();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, getMousePositionWorld(), ref m_handVelocity, smoothTime);
-        if (Input.GetButtonDown("Fire1") && fire != null)
+        transform.position = Vector3.SmoothDamp(transform.position, getMousePositionWorld(), ref m_handVelocity, positionSmoothTime);
+        if (Input.GetButton("Fire1") && fire != null)
         {
             fire();
         }
