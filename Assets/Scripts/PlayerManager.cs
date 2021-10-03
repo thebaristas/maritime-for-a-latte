@@ -15,20 +15,24 @@ public class PlayerManager : MonoBehaviour
   void Start()
   {
     transform.position = getMousePositionWorld();
+    Cursor.visible = false;
   }
 
   // Update is called once per frame
   void Update()
   {
-    transform.position = getMousePositionWorld();
-    pouringAnimator.SetBool("isPouring", Input.GetButton("Fire1"));
-    if (Input.GetButton("Fire1") && dropMilk != null && pouringAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pouring"))
+    if (GameManager.instance.isPlaying)
     {
-      dropMilk();
-    }
-    if (Input.GetButtonDown("Jump") && completeCoffee != null)
-    {
-      completeCoffee();
+        transform.position = getMousePositionWorld();
+        pouringAnimator.SetBool("isPouring", Input.GetButton("Fire1"));
+        if (Input.GetButton("Fire1") && dropMilk != null && pouringAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pouring"))
+        {
+            dropMilk();
+        }
+        if (Input.GetButtonDown("Jump") && completeCoffee != null)
+        {
+            completeCoffee();
+        }
     }
   }
 

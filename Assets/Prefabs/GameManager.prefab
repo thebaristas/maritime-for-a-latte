@@ -402,7 +402,7 @@ MonoBehaviour:
     dropSizeFactor: 3
   playerManager: {fileID: 0}
   latteRenderer: {fileID: 6994703386404413675}
-  shapeManager: {fileID: 0}
+  shapeManager: {fileID: 8016862362786476245}
 --- !u!114 &6994703386404413675
 MonoBehaviour:
   m_ObjectHideFlags: 0
