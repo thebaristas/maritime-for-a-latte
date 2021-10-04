@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     m_nextDropTimestamp = Time.time;
     AudioManager.instance.Play("boat-waves");
     AudioManager.instance.Play("seagulls");
+    AudioManager.instance.Play("music-game");
     isPlaying = true;
   }
 
