@@ -940,6 +940,36 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: angry-1
+    clip: {fileID: 8300000, guid: eaaa5106624fde04d9ddd90174e84518, type: 3}
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: angry-2
+    clip: {fileID: 8300000, guid: c4d5c9dae10ca68408bbfc9edce72ad3, type: 3}
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: angry-3
+    clip: {fileID: 8300000, guid: 82b40a4dd6668d845bf80eb085d9d7f0, type: 3}
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: tick-tock
+    clip: {fileID: 8300000, guid: 3ebe506e02196764daad6ef9af84a1ee, type: 3}
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: bell
+    clip: {fileID: 8300000, guid: 5a1eac5fe34810c45a4bd90ead81450d, type: 3}
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &7650807160831808072
 GameObject:
   m_ObjectHideFlags: 0
