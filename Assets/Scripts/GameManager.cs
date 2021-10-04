@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     m_nextDropTimestamp = Time.time;
     AudioManager.instance.Play("boat-waves");
     AudioManager.instance.Play("seagulls");
+    AudioManager.instance.Play("music-menu");
     uIManager.DisplayOverlay(true);
     uIManager.DisplayScore(baseProfit, tips);
     m_servingTimer = gameSettings.serveCooldownSeconds;
@@ -68,8 +69,7 @@ public class GameManager : MonoBehaviour
   {
     if (remainingTime <= 0f)
     {
-      gameState = GameState.GameOver;
-      uIManager.DisplayOverlay(true);
+      FinishGameSession();
     }
     if (isPlaying)
     {
@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGameSession()
     {
+        AudioManager.instance.Stop("music-menu");
         AudioManager.instance.Play("music-game");
         remainingTime = gameSettings.gameDuration;
         baseProfit = 0f;
@@ -120,6 +121,12 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.Play("music-game");
         gameState = GameState.Playing;
         uIManager.DisplayOverlay(false);
+    }
+
+    public void FinishGameSession()
+    {
+        gameState = GameState.GameOver;
+        uIManager.DisplayOverlay(true);
     }
 
     public void QuitGame()
