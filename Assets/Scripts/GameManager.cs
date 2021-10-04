@@ -13,6 +13,7 @@ public class GameSettings
   public byte dropIntensity = 4; // How intense is each drop
   public int dropSizeFactor = 3; // A scalar controlling the maximum size of each drop
   public float latteBasePrice = 2.49f; // The price of a latte in pounds
+  public float serveCooldownSeconds = 2f;
 }
 
 public enum GameState
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
   public LatteRenderer latteRenderer;
   public ShapeManager shapeManager;
   public UIManager uIManager;
-  public float baseProfit { get; private set; } = 120f;
+  public float baseProfit { get; private set; } = 0f;
   public float tips { get; private set; } = 0f;
   public float remainingTime { get; private set; } =  120f;
   public bool isPlaying { get => gameState == GameState.Playing; }
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
   private Vector2 m_scale = new Vector2(1f, 1f);
   private byte[,] m_milknessGrid;
   private float m_nextDropTimestamp = 0f;
+  private float m_servingTimer;
 
   void Awake()
   {
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour
     AudioManager.instance.Play("music-menu");
     uIManager.DisplayOverlay(true);
     uIManager.DisplayScore(baseProfit, tips);
+    m_servingTimer = gameSettings.serveCooldownSeconds;
   }
 
   // Update is called once per frame
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour
     {
       latteRenderer.RenderLatte(m_milknessGrid);
       remainingTime -= Time.deltaTime;
+      m_servingTimer -= Time.deltaTime;
       uIManager.DisplayTime(remainingTime);
     }
   }
@@ -150,10 +154,14 @@ public class GameManager : MonoBehaviour
 
   public void CompleteCoffee()
   {
-    AudioManager.instance.Play("slide-cup");
-    UpdateProfits();
-    shapeManager.ChangeSpriteRandomly();
-    ReinitialiseCoffee();
+    if (m_servingTimer <= 0)
+    {
+        m_servingTimer = gameSettings.serveCooldownSeconds;
+        AudioManager.instance.Play("slide-cup");
+        UpdateProfits();
+        shapeManager.ChangeSpriteRandomly();
+        ReinitialiseCoffee();
+    }
   }
 
   private float ComputeAccuracy()
@@ -178,14 +186,22 @@ public class GameManager : MonoBehaviour
     return Mathf.Sqrt((float)success / (float)total); // sqrt to help the player :D
   }
 
+  private float ComputeTip(float accuracy)
+  {
+    return Mathf.Pow(accuracy * 2, 4) / 6;
+  }
+
   private void UpdateProfits()
   {
-    var accuracy = ComputeAccuracy();
+    float accuracy = ComputeAccuracy();
     if (accuracy >= gameSettings.accuracyThreshold)
     {
-      baseProfit += gameSettings.latteBasePrice;
-      tips += Mathf.Pow(accuracy * 2, 4) / 6;
+      float profitIncrement = gameSettings.latteBasePrice;
+      float tipIncrement = ComputeTip(accuracy);
+      baseProfit += profitIncrement;
+      tips += tipIncrement;
       AudioManager.instance.Play("coins");
+      uIManager.DropProfit(profitIncrement, tipIncrement);
       uIManager.DisplayScore(baseProfit, tips);
     }
   }
