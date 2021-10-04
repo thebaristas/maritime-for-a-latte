@@ -5,22 +5,24 @@ using UnityEngine.UI;
 
 public class UIOverlayManager : MonoBehaviour
 {
-    public Text TitleText;
+    public Text titleText;
+    public GameObject tutorial;
     public UIResultsManager resultsManager;
     public UIButtonsManager buttonsManager;
 
-    // Start is called before the first frame update
-    void Start()
+    public void UpdateDisplay()
     {
-        resultsManager.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameManager.instance.gameState == GameState.GameOver)
+        switch (GameManager.instance.gameState)
         {
-            resultsManager.gameObject.SetActive(true);
+            case GameState.GameOver:
+                tutorial.gameObject.SetActive(false);
+                resultsManager.gameObject.SetActive(true);
+                resultsManager.UpdateDisplay();
+                break;
+            default:
+                tutorial.gameObject.SetActive(true);
+                resultsManager.gameObject.SetActive(false);
+                break;
         }
     }
 }

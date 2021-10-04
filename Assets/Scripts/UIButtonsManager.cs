@@ -17,19 +17,21 @@ public class UIButtonsManager : MonoBehaviour
         m_playText = PlayButton.GetComponentInChildren<Text>();
     }
 
-    public void ConfigurePlay()
+    public void UpdateDisplay()
     {
-        m_playText.text = "Play";
-    }
-
-    public void ConfigurePause()
-    {
-        m_playText.text = "Resume";
+        if (GameManager.instance.gameState == GameState.Pause)
+        {
+            m_playText.text = "Resume";
+        }
+        else
+        {
+            m_playText.text = "Play";
+        }
     }
 
     public void OnPlayClick()
     {
-        GameManager.instance.StartGameSession();
+        GameManager.instance.Play();
     }
 
     public void OnExitClick()

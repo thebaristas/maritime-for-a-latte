@@ -16,7 +16,6 @@ public class PlayerManager : MonoBehaviour
   void Start()
   {
     transform.position = getMousePositionWorld();
-    Cursor.visible = false;
   }
 
   // Update is called once per frame

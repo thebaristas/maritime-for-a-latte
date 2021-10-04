@@ -28,5 +28,7 @@ public class UIManager : MonoBehaviour
     {
         overlayBackground.SetActive(isDisplayed);
         overlay.gameObject.SetActive(isDisplayed);
+        Cursor.visible = isDisplayed;
+        if (isDisplayed) { overlay.UpdateDisplay(); }
     }
 }

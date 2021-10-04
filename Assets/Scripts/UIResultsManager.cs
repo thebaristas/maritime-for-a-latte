@@ -9,16 +9,15 @@ public class UIResultsManager : MonoBehaviour
     public Text tipsText;
     public Text totalProfitText;
 
-    // Update is called once per frame
-    public void Update()
+    public void UpdateDisplay()
     {
         DisplayScore(GameManager.instance.baseProfit, GameManager.instance.tips);
     }
 
     public void DisplayScore(float profit, float tips)
     {
-        baseProfitText.text = string.Format("Profits . . . . . £{0:0.00}", profit);
-        tipsText.text = string.Format("Tips . . . . . . . £{0:0.00}", tips);
-        totalProfitText.text = string.Format("Total . . . . . . £{0:0.00}", profit + tips);
+        baseProfitText.text = string.Format("Profits . . . . £{0:0.00}", profit);
+        tipsText.text = string.Format("Tips . . . . . . £{0:0.00}", tips);
+        totalProfitText.text = string.Format("Total . . . . . £{0:0.00}", profit + tips);
     }
 }

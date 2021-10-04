@@ -93,7 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe7dcdebff04aaca1c8228e2125c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TitleText: {fileID: 8375106340055121448}
+  titleText: {fileID: 8375106340055121448}
+  tutorial: {fileID: 7917598977854224905}
   resultsManager: {fileID: 77134414396599581}
   buttonsManager: {fileID: 7589819258110231675}
 --- !u!1 &958068143114786625

@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
   public LatteRenderer latteRenderer;
   public ShapeManager shapeManager;
   public UIManager uIManager;
-  public float baseProfit { get; private set; } = 0f;
+  public float baseProfit { get; private set; } = 120f;
   public float tips { get; private set; } = 0f;
   public float remainingTime { get; private set; } =  120f;
   public bool isPlaying { get => gameState == GameState.Playing; }
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     AudioManager.instance.Play("boat-waves");
     AudioManager.instance.Play("seagulls");
     uIManager.DisplayOverlay(true);
+    uIManager.DisplayScore(baseProfit, tips);
   }
 
   // Update is called once per frame
@@ -75,12 +76,30 @@ public class GameManager : MonoBehaviour
     }
   }
 
+    public void Play()
+    {
+        switch (gameState)
+        {
+            case GameState.Menu:
+            case GameState.GameOver:
+                StartGameSession();
+                break;
+            case GameState.Pause:
+                Resume();
+                break;
+            default:
+                break;
+        }
+    }
+
     public void StartGameSession()
     {
         AudioManager.instance.Play("music-game");
         remainingTime = gameSettings.gameDuration;
         baseProfit = 0f;
         tips = 0f;
+        uIManager.DisplayScore(baseProfit, tips);
+        ReinitialiseCoffee();
         gameState = GameState.Playing;
         uIManager.DisplayOverlay(false);
     }
