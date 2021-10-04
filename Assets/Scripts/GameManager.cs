@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
   public void CompleteCoffee()
   {
+    AudioManager.instance.Play("slide-cup");
     UpdateScore();
     shapeManager.ChangeSpriteRandomly();
     ReinitialiseCoffee();
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
     if (latestAccuracy >= gameSettings.accuracyThreshold)
     {
       score += 1;
+      AudioManager.instance.Play("coins");
     }
     Debug.Log(score);
   }

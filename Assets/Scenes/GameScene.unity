@@ -338,7 +338,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ship-horn
     clip: {fileID: 8300000, guid: 2ccbe208d42605248ba9b550c2558299, type: 3}
-    loop: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: coins
+    clip: {fileID: 8300000, guid: c7221c49b9464f9428cec68659442ece, type: 3}
+    loop: 0
     volume: 1
     pitch: 1
     source: {fileID: 0}
