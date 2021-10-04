@@ -18,10 +18,10 @@ public class GameSettings
 
 public enum GameState
 {
-    Menu,
-    Playing,
-    Pause,
-    GameOver
+  Menu,
+  Playing,
+  Pause,
+  GameOver
 }
 
 public class GameManager : MonoBehaviour
@@ -34,13 +34,14 @@ public class GameManager : MonoBehaviour
   public UIManager uIManager;
   public float baseProfit { get; private set; } = 0f;
   public float tips { get; private set; } = 0f;
-  public float remainingTime { get; private set; } =  120f;
+  public float remainingTime { get; private set; } = 120f;
   public bool isPlaying { get => gameState == GameState.Playing; }
   public GameState gameState { get; private set; } = GameState.Menu;
   private Vector2 m_scale = new Vector2(1f, 1f);
   private byte[,] m_milknessGrid;
   private float m_nextDropTimestamp = 0f;
   private float m_servingTimer;
+  private bool m_playedTickSound;
 
   void Awake()
   {
@@ -62,77 +63,89 @@ public class GameManager : MonoBehaviour
     uIManager.UpdateDisplay();
     uIManager.DisplayScore(baseProfit, tips);
     m_servingTimer = gameSettings.serveCooldownSeconds;
+    m_playedTickSound = false;
   }
 
   // Update is called once per frame
   void Update()
   {
-    if (remainingTime <= 0f)
-    {
-      FinishGameSession();
-    }
     if (isPlaying)
     {
-      latteRenderer.RenderLatte(m_milknessGrid);
-      remainingTime -= Time.deltaTime;
-      m_servingTimer -= Time.deltaTime;
-      uIManager.DisplayTime(remainingTime);
+      if (remainingTime <= 0f)
+      {
+        FinishGameSession();
+      }
+      else
+      {
+        if (remainingTime < 10f && !m_playedTickSound)
+        {
+          m_playedTickSound = true;
+          AudioManager.instance.Play("tick-tock");
+        }
+        latteRenderer.RenderLatte(m_milknessGrid);
+        remainingTime -= Time.deltaTime;
+        m_servingTimer -= Time.deltaTime;
+        uIManager.DisplayTime(remainingTime);
+      }
     }
   }
 
-    public void Play()
+  public void Play()
+  {
+    switch (gameState)
     {
-        switch (gameState)
-        {
-            case GameState.Menu:
-            case GameState.GameOver:
-                StartGameSession();
-                break;
-            case GameState.Pause:
-                Resume();
-                break;
-            default:
-                break;
-        }
+      case GameState.Menu:
+      case GameState.GameOver:
+        StartGameSession();
+        break;
+      case GameState.Pause:
+        Resume();
+        break;
+      default:
+        break;
     }
+  }
 
-    public void StartGameSession()
-    {
-        AudioManager.instance.Stop("music-menu");
-        AudioManager.instance.Play("music-game");
-        remainingTime = gameSettings.gameDuration;
-        baseProfit = 0f;
-        tips = 0f;
-        uIManager.DisplayScore(baseProfit, tips);
-        ReinitialiseCoffee();
-        gameState = GameState.Playing;
-        uIManager.UpdateDisplay();
-    }
+  public void StartGameSession()
+  {
+    AudioManager.instance.Stop("music-menu");
+    AudioManager.instance.Play("music-game");
+    remainingTime = gameSettings.gameDuration;
+    baseProfit = 0f;
+    tips = 0f;
+    uIManager.DisplayScore(baseProfit, tips);
+    ReinitialiseCoffee();
+    gameState = GameState.Playing;
+    uIManager.UpdateDisplay();
+    m_playedTickSound = false;
+    AudioManager.instance.Play("bell");
+  }
 
-    public void PauseGame()
-    {
-        AudioManager.instance.Pause("music-game");
-        gameState = GameState.Pause;
-        uIManager.UpdateDisplay();
-    }
+  public void PauseGame()
+  {
+    AudioManager.instance.Pause("music-game");
+    gameState = GameState.Pause;
+    uIManager.UpdateDisplay();
+  }
 
-    public void Resume()
-    {
-        AudioManager.instance.Play("music-game");
-        gameState = GameState.Playing;
-        uIManager.UpdateDisplay();
-    }
+  public void Resume()
+  {
+    AudioManager.instance.Play("music-game");
+    gameState = GameState.Playing;
+    uIManager.UpdateDisplay();
+  }
 
-    public void FinishGameSession()
-    {
-        gameState = GameState.GameOver;
-        uIManager.UpdateDisplay();
-    }
+  public void FinishGameSession()
+  {
+    gameState = GameState.GameOver;
+    AudioManager.instance.Play("bell");
+    uIManager.UpdateDisplay();
+  }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
+  public void QuitGame()
+  {
+    Application.Quit();
+  }
 
   public void DropMilk()
   {
@@ -156,11 +169,11 @@ public class GameManager : MonoBehaviour
   {
     if (m_servingTimer <= 0)
     {
-        m_servingTimer = gameSettings.serveCooldownSeconds;
-        AudioManager.instance.Play("slide-cup");
-        UpdateProfits();
-        shapeManager.ChangeSpriteRandomly();
-        ReinitialiseCoffee();
+      m_servingTimer = gameSettings.serveCooldownSeconds;
+      AudioManager.instance.Play("slide-cup");
+      UpdateProfits();
+      shapeManager.ChangeSpriteRandomly();
+      ReinitialiseCoffee();
     }
   }
 
