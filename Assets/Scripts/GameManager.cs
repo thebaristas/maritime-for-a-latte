@@ -15,6 +15,14 @@ public class GameSettings
   public float latteBasePrice = 2.49f; // The price of a latte in pounds
 }
 
+public enum GameState
+{
+    Menu,
+    Playing,
+    Pause,
+    GameOver
+}
+
 public class GameManager : MonoBehaviour
 {
   public static GameManager instance;
@@ -22,11 +30,12 @@ public class GameManager : MonoBehaviour
   public PlayerManager playerManager;
   public LatteRenderer latteRenderer;
   public ShapeManager shapeManager;
+  public UIManager uIManager;
   public float baseProfit { get; private set; } = 0f;
   public float tips { get; private set; } = 0f;
-  public float latestAccuracy { get; private set; } = 0f;
   public float remainingTime { get; private set; } =  120f;
-  public bool isPlaying { get; private set; } = false;
+  public bool isPlaying { get => gameState == GameState.Playing; }
+  public GameState gameState { get; private set; } = GameState.Menu;
   private Vector2 m_scale = new Vector2(1f, 1f);
   private byte[,] m_milknessGrid;
   private float m_nextDropTimestamp = 0f;
@@ -47,6 +56,7 @@ public class GameManager : MonoBehaviour
     m_nextDropTimestamp = Time.time;
     AudioManager.instance.Play("boat-waves");
     AudioManager.instance.Play("seagulls");
+    uIManager.DisplayOverlay(true);
   }
 
   // Update is called once per frame
@@ -54,12 +64,14 @@ public class GameManager : MonoBehaviour
   {
     if (remainingTime <= 0f)
     {
-      isPlaying = false;
+      gameState = GameState.GameOver;
+      uIManager.DisplayOverlay(true);
     }
     if (isPlaying)
     {
       latteRenderer.RenderLatte(m_milknessGrid);
       remainingTime -= Time.deltaTime;
+      uIManager.DisplayTime(remainingTime);
     }
   }
 
@@ -67,19 +79,24 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.instance.Play("music-game");
         remainingTime = gameSettings.gameDuration;
-        isPlaying = true;
+        baseProfit = 0f;
+        tips = 0f;
+        gameState = GameState.Playing;
+        uIManager.DisplayOverlay(false);
     }
 
     public void PauseGame()
     {
         AudioManager.instance.Pause("music-game");
-        isPlaying = false;
+        gameState = GameState.Pause;
+        uIManager.DisplayOverlay(true);
     }
 
     public void Resume()
     {
         AudioManager.instance.Play("music-game");
-        isPlaying = true;
+        gameState = GameState.Playing;
+        uIManager.DisplayOverlay(false);
     }
 
     public void QuitGame()
@@ -137,12 +154,13 @@ public class GameManager : MonoBehaviour
 
   private void UpdateProfits()
   {
-    latestAccuracy = ComputeAccuracy();
-    if (latestAccuracy >= gameSettings.accuracyThreshold)
+    var accuracy = ComputeAccuracy();
+    if (accuracy >= gameSettings.accuracyThreshold)
     {
       baseProfit += gameSettings.latteBasePrice;
-      tips += Mathf.Pow(latestAccuracy * 2, 4) / 6;
+      tips += Mathf.Pow(accuracy * 2, 4) / 6;
       AudioManager.instance.Play("coins");
+      uIManager.DisplayScore(baseProfit, tips);
     }
   }
 
