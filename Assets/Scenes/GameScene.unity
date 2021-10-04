@@ -153,6 +153,10 @@ PrefabInstance:
       propertyPath: gameSettings.gameDuration
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: -966460153841306444, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: gameSettings.dropIntensity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1203130151006641209, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
       propertyPath: m_Sprite
       value: 
