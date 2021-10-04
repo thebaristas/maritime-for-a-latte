@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     AudioManager.instance.Play("boat-waves");
     AudioManager.instance.Play("seagulls");
     AudioManager.instance.Play("music-menu");
-    uIManager.DisplayOverlay(true);
+    uIManager.UpdateDisplay();
     uIManager.DisplayScore(baseProfit, tips);
     m_servingTimer = gameSettings.serveCooldownSeconds;
   }
@@ -106,27 +106,27 @@ public class GameManager : MonoBehaviour
         uIManager.DisplayScore(baseProfit, tips);
         ReinitialiseCoffee();
         gameState = GameState.Playing;
-        uIManager.DisplayOverlay(false);
+        uIManager.UpdateDisplay();
     }
 
     public void PauseGame()
     {
         AudioManager.instance.Pause("music-game");
         gameState = GameState.Pause;
-        uIManager.DisplayOverlay(true);
+        uIManager.UpdateDisplay();
     }
 
     public void Resume()
     {
         AudioManager.instance.Play("music-game");
         gameState = GameState.Playing;
-        uIManager.DisplayOverlay(false);
+        uIManager.UpdateDisplay();
     }
 
     public void FinishGameSession()
     {
         gameState = GameState.GameOver;
-        uIManager.DisplayOverlay(true);
+        uIManager.UpdateDisplay();
     }
 
     public void QuitGame()

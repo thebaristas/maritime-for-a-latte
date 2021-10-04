@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public Text totalProfitText;
     public Text dropText;
     public Text timeText;
+    public GameObject profit;
+    public GameObject time;
     public GameObject overlayBackground;
     public UIOverlayManager overlay;
     public RectTransform profitImageTransform;
@@ -21,6 +23,28 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         dropText.transform.position = Vector2.MoveTowards(dropText.transform.position, profitImageTransform.position, dropSpeed * Time.deltaTime);
+    }
+
+     public void UpdateDisplay()
+    {
+        switch (GameManager.instance.gameState)
+        {
+            case GameState.Playing:
+                DisplayInGameUI(true);
+                DisplayOverlay(false);
+                break;
+            case GameState.Menu:
+            case GameState.GameOver:
+                DisplayInGameUI(false);
+                DisplayOverlay(true);
+                break;
+            case GameState.Pause:
+                DisplayInGameUI(true);
+                DisplayOverlay(true);
+                break;
+            default:
+                break;
+        }
     }
 
     public void DropProfit(float profitIncrement, float tipIncrement)
@@ -58,6 +82,16 @@ public class UIManager : MonoBehaviour
         if (isDisplayed)
         {
             overlay.UpdateDisplay();
+        }
+    }
+
+    public void DisplayInGameUI(bool isDisplayed)
+    {
+        if (profit != null && time != null)
+        {
+            profit.SetActive(isDisplayed);
+            time.SetActive(isDisplayed);
+            dropText.gameObject.SetActive(isDisplayed);
         }
     }
 }
