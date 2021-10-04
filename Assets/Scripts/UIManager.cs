@@ -8,9 +8,26 @@ public class UIManager : MonoBehaviour
     public Text baseProfitText;
     public Text tipsText;
     public Text totalProfitText;
+    public Text dropText;
     public Text timeText;
     public GameObject overlayBackground;
     public UIOverlayManager overlay;
+    public RectTransform profitImageTransform;
+    public float dropSpeed = 3f;
+
+    private readonly Color32 c_lowTimeColour = new Color32(200, 50, 35, 255);
+
+    // Update is called once per frame
+    void Update()
+    {
+        dropText.transform.position = Vector2.MoveTowards(dropText.transform.position, profitImageTransform.position, dropSpeed * Time.deltaTime);
+    }
+
+    public void DropProfit(float profitIncrement, float tipIncrement)
+    {
+        dropText.transform.position -= new Vector3(0, Camera.main.orthographicSize * 2 / 3, 0);
+        dropText.text = string.Format("+ £{0:0.00}", profitIncrement + tipIncrement);
+    }
 
     public void DisplayScore(float profit, float tips)
     {
@@ -21,7 +38,16 @@ public class UIManager : MonoBehaviour
 
     public void DisplayTime(float time)
     {
-        timeText.text = string.Format("{0}s", Mathf.CeilToInt(time));
+        if (time <= 10)
+        {
+            timeText.color = c_lowTimeColour;
+        }
+        else
+        {
+            timeText.color = Color.black;
+        }
+        System.TimeSpan timeSpan = System.TimeSpan.FromSeconds(time);
+        timeText.text = timeSpan.ToString(@"mm\:ss");
     }
 
     public void DisplayOverlay(bool isDisplayed)
@@ -29,6 +55,9 @@ public class UIManager : MonoBehaviour
         overlayBackground.SetActive(isDisplayed);
         overlay.gameObject.SetActive(isDisplayed);
         Cursor.visible = isDisplayed;
-        if (isDisplayed) { overlay.UpdateDisplay(); }
+        if (isDisplayed)
+        {
+            overlay.UpdateDisplay();
+        }
     }
 }

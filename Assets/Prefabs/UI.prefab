@@ -36,7 +36,7 @@ RectTransform:
   - {fileID: 2340472024079478024}
   - {fileID: 8991553441812573649}
   m_Father: {fileID: 3218098212761579039}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -128,7 +128,7 @@ RectTransform:
   m_Children:
   - {fileID: 3218098213408944108}
   m_Father: {fileID: 3218098212761579039}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -814,6 +814,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 6195338737415541924}
+  - {fileID: 7177287878600672683}
   - {fileID: 4073882071818890533}
   - {fileID: 5612239879151837874}
   - {fileID: 6424944640866752772}
@@ -933,9 +934,12 @@ MonoBehaviour:
   baseProfitText: {fileID: 3218098212069690512}
   tipsText: {fileID: 3218098212241937843}
   totalProfitText: {fileID: 1424062188955594573}
+  dropText: {fileID: 1965753590589408295}
   timeText: {fileID: 3218098213408944110}
   overlayBackground: {fileID: 2758269801362361824}
   overlay: {fileID: 6195235079644538856}
+  profitImageTransform: {fileID: 4073882071818890533}
+  dropSpeed: 2
 --- !u!1 &3218098213408944111
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,8 +974,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00087929, y: 14.5995}
-  m_SizeDelta: {x: 302.23, y: 120.7977}
+  m_AnchoredPosition: {x: 0.00087929, y: 0.48317}
+  m_SizeDelta: {x: 302.23, y: 149.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3218098213408944109
 CanvasRenderer:
@@ -1027,7 +1031,7 @@ GameObject:
   - component: {fileID: 6365650648201440521}
   - component: {fileID: 4648301398260656526}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Profit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1048,7 +1052,7 @@ RectTransform:
   - {fileID: 3218098212241937836}
   - {fileID: 2647168123648698776}
   m_Father: {fileID: 3218098212761579039}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1214,6 +1218,85 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &6761647839733048237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7177287878600672683}
+  - component: {fileID: 1880438377059335768}
+  - component: {fileID: 1965753590589408295}
+  m_Layer: 5
+  m_Name: ProfitDropText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7177287878600672683
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6761647839733048237}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3218098212761579039}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -135}
+  m_SizeDelta: {x: 260, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1880438377059335768
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6761647839733048237}
+  m_CullTransparentMesh: 1
+--- !u!114 &1965753590589408295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6761647839733048237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.10969208, g: 0.8018868, b: 0.19737, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: c696fcbed068f40e181b5dff2e6d3f08, type: 3}
+    m_FontSize: 80
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 5
+    m_MaxSize: 80
+    m_Alignment: 5
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: ProfitDrop
 --- !u!1 &7100407357259054829
 GameObject:
   m_ObjectHideFlags: 0
