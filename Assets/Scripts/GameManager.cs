@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class GameSettings
 {
+  public float gameDuration = 120f;
   public float accuracyThreshold = 0.4f;
   public int milknessGridSize = 32;
   public float dropCooldownSeconds = 0.001f; // How often the latte data is updated
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
   public ShapeManager shapeManager;
   public int score { get; private set; } = 0;
   public float latestAccuracy { get; private set; } = 0f;
-  public float remainingTime { get; private set; } = 60f;
+  public float remainingTime { get; private set; } =  120f;
   public bool isPlaying { get; private set; } = false;
   private Vector2 m_scale = new Vector2(1f, 1f);
   private byte[,] m_milknessGrid;
@@ -39,12 +40,11 @@ public class GameManager : MonoBehaviour
     m_milknessGrid = new byte[gameSettings.milknessGridSize, gameSettings.milknessGridSize];
     playerManager.dropMilk = DropMilk;
     playerManager.completeCoffee = CompleteCoffee;
+    playerManager.pauseGame = PauseGame;
     m_scale = transform.localScale;
     m_nextDropTimestamp = Time.time;
     AudioManager.instance.Play("boat-waves");
     AudioManager.instance.Play("seagulls");
-    AudioManager.instance.Play("music-game");
-    isPlaying = true;
   }
 
   // Update is called once per frame
@@ -60,6 +60,30 @@ public class GameManager : MonoBehaviour
       remainingTime -= Time.deltaTime;
     }
   }
+
+    public void StartGameSession()
+    {
+        AudioManager.instance.Play("music-game");
+        remainingTime = gameSettings.gameDuration;
+        isPlaying = true;
+    }
+
+    public void PauseGame()
+    {
+        AudioManager.instance.Pause("music-game");
+        isPlaying = false;
+    }
+
+    public void Resume()
+    {
+        AudioManager.instance.Play("music-game");
+        isPlaying = true;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
   public void DropMilk()
   {
