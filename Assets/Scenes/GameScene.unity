@@ -149,6 +149,10 @@ PrefabInstance:
       propertyPath: playerManager
       value: 
       objectReference: {fileID: 503728141}
+    - target: {fileID: -966460153841306444, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+      propertyPath: gameSettings.gameDuration
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 1203130151006641209, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -219,6 +223,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
+--- !u!114 &333378593 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8375106340055121448, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
+  m_PrefabInstance: {fileID: 3218098212820988387}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &503728141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8167987866386952335, guid: 848ac0bf2ae5047d6ba76a7a150137b7, type: 3}
@@ -511,6 +526,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 6195235079644538856, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
+      propertyPath: titleText
+      value: 
+      objectReference: {fileID: 333378593}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
 --- !u!1001 &4739028094506281651
