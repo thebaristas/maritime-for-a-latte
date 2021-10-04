@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGameSession()
     {
+        AudioManager.instance.Stop("music-menu");
         AudioManager.instance.Play("music-game");
         remainingTime = gameSettings.gameDuration;
         baseProfit = 0f;
