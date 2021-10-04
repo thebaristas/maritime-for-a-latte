@@ -210,30 +210,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6347405972052061857, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: sounds.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347405972052061857, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: sounds.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: d6d5a01713272044a8f9cfeee2de8268, type: 3}
-    - target: {fileID: 6347405972052061857, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: sounds.Array.data[6].loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347405972052061857, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: sounds.Array.data[6].name
-      value: slide-cup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347405972052061857, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: sounds.Array.data[6].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347405972052061857, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: sounds.Array.data[6].volume
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
 --- !u!114 &503728141 stripped

@@ -933,6 +933,12 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: slide-cup
+    clip: {fileID: 8300000, guid: d6d5a01713272044a8f9cfeee2de8268, type: 3}
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &7650807160831808072
 GameObject:
   m_ObjectHideFlags: 0
