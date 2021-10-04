@@ -43,7 +43,7 @@ public class InstabilityGenerator : MonoBehaviour
     {
       return;
     }
-    
+
     m_canonical_position = Vector2.SmoothDamp(m_canonical_position, m_rockingTarget, ref m_rockingVelocity, m_rockingInterval);
     transform.position = m_canonical_position + getShakingOffset();
 
@@ -60,6 +60,7 @@ public class InstabilityGenerator : MonoBehaviour
     {
       m_shakingTimer = m_isShaking ? getShakingInterval() : getShakingDuration();
       m_isShaking = !m_isShaking;
+      if (m_isShaking) AudioManager.instance.Play("ship-horn");
     }
   }
 
