@@ -18,10 +18,12 @@ public class UIOverlayManager : MonoBehaviour
                 tutorial.gameObject.SetActive(false);
                 resultsManager.gameObject.SetActive(true);
                 resultsManager.UpdateDisplay();
+                buttonsManager.UpdateDisplay();
                 break;
             default:
                 tutorial.gameObject.SetActive(true);
                 resultsManager.gameObject.SetActive(false);
+                buttonsManager.UpdateDisplay();
                 break;
         }
     }
