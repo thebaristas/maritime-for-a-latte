@@ -16,7 +16,7 @@ public class UIResultsManager : MonoBehaviour
 
     public void DisplayScore(float profit, float tips)
     {
-        baseProfitText.text = string.Format("Profits . . . . £{0:0.00}", profit);
+        baseProfitText.text = string.Format("Profit . . . . £{0:0.00}", profit);
         tipsText.text = string.Format("Tips . . . . . . £{0:0.00}", tips);
         totalProfitText.text = string.Format("Total . . . . . £{0:0.00}", profit + tips);
     }
