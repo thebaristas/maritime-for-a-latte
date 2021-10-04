@@ -9,21 +9,8 @@ public class UIManager : MonoBehaviour
     public Text tipsText;
     public Text totalProfitText;
     public Text timeText;
-    public Text gameOverText;
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameManager.instance.isPlaying)
-        {
-            DisplayScore(GameManager.instance.baseProfit, GameManager.instance.tips);
-            DisplayTime(GameManager.instance.remainingTime);
-        }
-        else
-        {
-            DisplayGameOver();
-        }
-    }
+    public GameObject overlayBackground;
+    public UIOverlayManager overlay;
 
     public void DisplayScore(float profit, float tips)
     {
@@ -37,9 +24,11 @@ public class UIManager : MonoBehaviour
         timeText.text = string.Format("{0}s", Mathf.CeilToInt(time));
     }
 
-    public void DisplayGameOver()
+    public void DisplayOverlay(bool isDisplayed)
     {
-        gameOverText.gameObject.SetActive(true);
-        gameOverText.text = string.Format("Time's up! Profit: £{0:0.00}", GameManager.instance.baseProfit + GameManager.instance.tips);
+        overlayBackground.SetActive(isDisplayed);
+        overlay.gameObject.SetActive(isDisplayed);
+        Cursor.visible = isDisplayed;
+        if (isDisplayed) { overlay.UpdateDisplay(); }
     }
 }

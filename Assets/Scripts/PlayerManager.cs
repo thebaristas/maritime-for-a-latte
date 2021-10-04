@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 {
   public Action dropMilk; // set in GameManager
   public Action completeCoffee; // set in GameManager
+  public Action pauseGame; // set in GameManager
   public Animator pouringAnimator;
 
   Vector3 m_handVelocity;
@@ -15,7 +16,6 @@ public class PlayerManager : MonoBehaviour
   void Start()
   {
     transform.position = getMousePositionWorld();
-    Cursor.visible = false;
   }
 
   // Update is called once per frame
@@ -32,6 +32,10 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetButtonDown("Jump") && completeCoffee != null)
         {
             completeCoffee();
+        }
+        if (Input.GetButtonDown("Cancel") && pauseGame != null)
+        {
+            pauseGame();
         }
     }
   }
