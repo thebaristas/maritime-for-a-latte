@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Text scoreText;
-    public Text accuracyText;
+    public Text baseProfitText;
+    public Text tipsText;
+    public Text totalProfitText;
     public Text timeText;
     public Text gameOverText;
 
@@ -15,7 +16,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.instance.isPlaying)
         {
-            DisplayScore(GameManager.instance.score, GameManager.instance.latestAccuracy);
+            DisplayScore(GameManager.instance.baseProfit, GameManager.instance.tips);
             DisplayTime(GameManager.instance.remainingTime);
         }
         else
@@ -24,10 +25,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void DisplayScore(int score, float accuracy)
+    public void DisplayScore(float profit, float tips)
     {
-        scoreText.text = string.Format("£{0}.00", score);
-        accuracyText.text = string.Format("Latest accuracy: {0}%", Mathf.Floor(accuracy * 100));
+        baseProfitText.text = string.Format("£{0:0.00}", profit);
+        tipsText.text = string.Format("+ £{0:0.00}", tips);
+        totalProfitText.text = string.Format("£{0:0.00}", profit + tips);
     }
 
     public void DisplayTime(float time)
@@ -38,6 +40,6 @@ public class UIManager : MonoBehaviour
     public void DisplayGameOver()
     {
         gameOverText.gameObject.SetActive(true);
-        gameOverText.text = string.Format("Time's up! Successful lattes: {0}", GameManager.instance.score);
+        gameOverText.text = string.Format("Time's up! Profit: £{0:0.00}", GameManager.instance.baseProfit + GameManager.instance.tips);
     }
 }

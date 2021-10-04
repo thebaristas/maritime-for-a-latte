@@ -843,11 +843,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings:
-    accuracyThreshold: 0.8
+    accuracyThreshold: 0.6
     milknessGridSize: 32
     dropCooldownSeconds: 0.001
-    dropIntensity: 3
+    dropIntensity: 4
     dropSizeFactor: 3
+    latteBasePrice: 2.49
   playerManager: {fileID: 0}
   latteRenderer: {fileID: 6994703386404413675}
   shapeManager: {fileID: 8016862362786476245}
