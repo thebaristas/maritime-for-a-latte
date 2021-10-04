@@ -436,22 +436,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 826958386002843448, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 826958386002843448, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: c696fcbed068f40e181b5dff2e6d3f08, type: 3}
-    - target: {fileID: 3218098212069690512, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: c696fcbed068f40e181b5dff2e6d3f08, type: 3}
-    - target: {fileID: 3218098212241937843, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: c696fcbed068f40e181b5dff2e6d3f08, type: 3}
     - target: {fileID: 3218098212761579036, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
       propertyPath: m_Camera
       value: 
@@ -508,14 +492,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 3218098213408944110, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3218098213408944110, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: c696fcbed068f40e181b5dff2e6d3f08, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38508645b75534ad4a41bd2dc7360e33, type: 3}
 --- !u!1001 &4739028094506281651

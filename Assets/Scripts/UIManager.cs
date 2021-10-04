@@ -26,13 +26,13 @@ public class UIManager : MonoBehaviour
 
     public void DisplayScore(int score, float accuracy)
     {
-        scoreText.text = string.Format("Successful lattes: {0}", score);
+        scoreText.text = string.Format("£{0}.00", score);
         accuracyText.text = string.Format("Latest accuracy: {0}%", Mathf.Floor(accuracy * 100));
     }
 
     public void DisplayTime(float time)
     {
-        timeText.text = string.Format("Remaining time: {0}s", Mathf.CeilToInt(time));
+        timeText.text = string.Format("{0}s", Mathf.CeilToInt(time));
     }
 
     public void DisplayGameOver()
