@@ -134,14 +134,6 @@ PrefabInstance:
       propertyPath: playerManager
       value: 
       objectReference: {fileID: 503728141}
-    - target: {fileID: -966460153841306444, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: dropCooldownSeconds
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -966460153841306444, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
-      propertyPath: gameSettings.accuracyThreshold
-      value: 0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 1203130151006641209, guid: 234826f1b264c4a8fa774b17af521127, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -6,11 +6,12 @@ using UnityEngine;
 [Serializable]
 public class GameSettings
 {
-  public float accuracyThreshold = 0.4f;
+  public float accuracyThreshold = 0.6f;
   public int milknessGridSize = 32;
   public float dropCooldownSeconds = 0.001f; // How often the latte data is updated
-  public byte dropIntensity = 3; // How intense is each drop
+  public byte dropIntensity = 4; // How intense is each drop
   public int dropSizeFactor = 3; // A scalar controlling the maximum size of each drop
+  public float latteBasePrice = 2.49f; // The price of a latte in pounds
 }
 
 public class GameManager : MonoBehaviour
@@ -20,7 +21,8 @@ public class GameManager : MonoBehaviour
   public PlayerManager playerManager;
   public LatteRenderer latteRenderer;
   public ShapeManager shapeManager;
-  public int score { get; private set; } = 0;
+  public float baseProfit { get; private set; } = 0f;
+  public float tips { get; private set; } = 0f;
   public float latestAccuracy { get; private set; } = 0f;
   public float remainingTime { get; private set; } = 60f;
   public bool isPlaying { get; private set; } = false;
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
   public void CompleteCoffee()
   {
     AudioManager.instance.Play("slide-cup");
-    UpdateScore();
+    UpdateProfits();
     shapeManager.ChangeSpriteRandomly();
     ReinitialiseCoffee();
   }
@@ -109,15 +111,15 @@ public class GameManager : MonoBehaviour
     return Mathf.Sqrt((float)success / (float)total); // sqrt to help the player :D
   }
 
-  private void UpdateScore()
+  private void UpdateProfits()
   {
     latestAccuracy = ComputeAccuracy();
     if (latestAccuracy >= gameSettings.accuracyThreshold)
     {
-      score += 1;
+      baseProfit += gameSettings.latteBasePrice;
+      tips += Mathf.Pow(latestAccuracy * 2, 4) / 6;
       AudioManager.instance.Play("coins");
     }
-    Debug.Log(score);
   }
 
   private void ReinitialiseCoffee()
