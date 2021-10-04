@@ -132,8 +132,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -150, y: -74.03198}
-  m_SizeDelta: {x: 302.23, y: 148.064}
+  m_AnchoredPosition: {x: -164, y: -74.03198}
+  m_SizeDelta: {x: 320, y: 148.064}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3986889897846213897
 CanvasRenderer:
@@ -936,6 +936,8 @@ MonoBehaviour:
   totalProfitText: {fileID: 1424062188955594573}
   dropText: {fileID: 1965753590589408295}
   timeText: {fileID: 3218098213408944110}
+  profit: {fileID: 3364376514639558300}
+  time: {fileID: 958068143114786625}
   overlayBackground: {fileID: 2758269801362361824}
   overlay: {fileID: 6195235079644538856}
   profitImageTransform: {fileID: 4073882071818890533}
