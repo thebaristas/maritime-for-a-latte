@@ -66,8 +66,7 @@ public class GameManager : MonoBehaviour
   {
     if (remainingTime <= 0f)
     {
-      gameState = GameState.GameOver;
-      uIManager.DisplayOverlay(true);
+      FinishGameSession();
     }
     if (isPlaying)
     {
@@ -117,6 +116,12 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.Play("music-game");
         gameState = GameState.Playing;
         uIManager.DisplayOverlay(false);
+    }
+
+    public void FinishGameSession()
+    {
+        gameState = GameState.GameOver;
+        uIManager.DisplayOverlay(true);
     }
 
     public void QuitGame()
