@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
   private byte[,] m_milknessGrid;
   private float m_nextDropTimestamp = 0f;
   private float m_servingTimer;
-  private bool m_tickPlayed = false;
-
+  private bool m_playedTickSound;
 
   void Awake()
   {
@@ -64,6 +63,7 @@ public class GameManager : MonoBehaviour
     uIManager.UpdateDisplay();
     uIManager.DisplayScore(baseProfit, tips);
     m_servingTimer = gameSettings.serveCooldownSeconds;
+    m_playedTickSound = false;
   }
 
   // Update is called once per frame
@@ -77,13 +77,10 @@ public class GameManager : MonoBehaviour
       }
       else
       {
-        if (remainingTime < 10f)
+        if (remainingTime < 10f && !m_playedTickSound)
         {
-          if (!m_tickPlayed)
-          {
-            m_tickPlayed = true;
-            AudioManager.instance.Play("tick-tock");
-          }
+          m_playedTickSound = true;
+          AudioManager.instance.Play("tick-tock");
         }
         latteRenderer.RenderLatte(m_milknessGrid);
         remainingTime -= Time.deltaTime;
@@ -99,17 +96,6 @@ public class GameManager : MonoBehaviour
     {
       case GameState.Menu:
       case GameState.GameOver:
-    StartGameSession();
-    break;
-  case GameState.Pau
-    Resume();
-    break;
-  default:
-    break;
-}
-=======
-      case GameState.Menu:
-      case GameState.GameOver:
         StartGameSession();
         break;
       case GameState.Pause:
@@ -117,120 +103,125 @@ public class GameManager : MonoBehaviour
         break;
       default:
         break;
->>>>>>> 98d5554 (feat: more sounds)
+    }
   }
-}
 
-<<<<<<< HEAD
-
-{
-
-dioManager.instance.Pause("mus
-meState = GameState.Pause;
-}
-
-
-{
-
-dioManager.instance.Play("music-
-meState = GameState.Playing;
-}
-
-
-{
-
-meState = GameState.GameOver
-}
-
-=======
   public void StartGameSession()
   {
     AudioManager.instance.Stop("music-menu");
     AudioManager.instance.Play("music-game");
-    m_tickPlayed = false;
     remainingTime = gameSettings.gameDuration;
     baseProfit = 0f;
     tips = 0f;
     uIManager.DisplayScore(baseProfit, tips);
     ReinitialiseCoffee();
     gameState = GameState.Playing;
-    uIManager.DisplayOverlay(false);
+    uIManager.UpdateDisplay();
+    m_playedTickSound = false;
+    AudioManager.instance.Play("bell");
   }
 
   public void PauseGame()
   {
     AudioManager.instance.Pause("music-game");
     gameState = GameState.Pause;
-    uIManager.DisplayOverlay(true);
+    uIManager.UpdateDisplay();
   }
 
   public void Resume()
   {
     AudioManager.instance.Play("music-game");
     gameState = GameState.Playing;
-    uIManager.DisplayOverlay(false);
+    uIManager.UpdateDisplay();
   }
->>>>>>> 98d5554 (feat: more sounds)
+
+  public void FinishGameSession()
   {
-{
-    AudioManager.instance.Play("s
-    UpdateProfits();
-    shapeManager.ChangeSpriteRandomly
-    ReinitialiseCoffee();
-}
+    gameState = GameState.GameOver;
+    AudioManager.instance.Play("bell");
+    uIManager.UpdateDisplay();
+  }
 
-
-{
-{
-}
-
-  int success = 0;
-{
-  for (int i = 0; i < Mathf.Min(shapeOp
+  public void QuitGame()
   {
-    var shapeOpacity = shapeOpacityArray[i];
-    var latteOpacity = latteRendererOpacityArray[i];
-    if (shapeOpacity > 0 || latteOpacity > 0)
+    Application.Quit();
+  }
 
-      if (Mathf.Abs(shapeOpacity - latteOpacity) < (byte.MaxValue / 2))
+  public void DropMilk()
+  {
+    if (m_nextDropTimestamp <= Time.time)
     {
-        success += 1;
-      }
-    }
+      Vector2 pos = playerManager.transform.position - transform.position;
+      int x = Mathf.FloorToInt(pos.x * gameSettings.milknessGridSize / m_scale.x);
+      int y = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
 
-    m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
-  }
-}
-
-public void CompleteCoffee()
-{
-  if (m_servingTimer <= 0)
-  {
-    m_servingTimer = gameSettings.serveCooldownSeconds;
-    AudioManager.instance.Play("slide-cup");
-    UpdateProfits();
-    shapeManager.ChangeSpriteRandomly();
-    ReinitialiseCoffee();
-  }
-}
-
-    baseProfit += profitIncreme
-{
-    AudioManager.instance.Play("coins");
-    uIManager.DropProfit(profitIncrement, tipIncrement);
-    uIManager.Disp
-  }
-  else
-  {
-    int angrySoundIndex = UnityEngine.Random
-    string angrySoundName = "angry-" + angrySoundInd
-    AudioManager.instance.Play(angrySoundName
-    {
-}
+      if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
       {
-private void Reinitia
+        int newMilkness = m_milknessGrid[x, y] + gameSettings.dropIntensity;
+        m_milknessGrid[x, y] = (byte)Mathf.Min(newMilkness, byte.MaxValue);
       }
-      total += 1;
+
+      m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
     }
   }
 
+  public void CompleteCoffee()
+  {
+    if (m_servingTimer <= 0)
+    {
+      m_servingTimer = gameSettings.serveCooldownSeconds;
+      AudioManager.instance.Play("slide-cup");
+      UpdateProfits();
+      shapeManager.ChangeSpriteRandomly();
+      ReinitialiseCoffee();
+    }
+  }
+
+  private float ComputeAccuracy()
+  {
+    var shapeOpacityArray = shapeManager.GetOpacityArray();
+    var latteRendererOpacityArray = latteRenderer.GetOpacityArray();
+    int success = 0;
+    int total = 0;
+    for (int i = 0; i < Mathf.Min(shapeOpacityArray.Length, latteRendererOpacityArray.Length); i++)
+    {
+      var shapeOpacity = shapeOpacityArray[i];
+      var latteOpacity = latteRendererOpacityArray[i];
+      if (shapeOpacity > 0 || latteOpacity > 0)
+      {
+        if (Mathf.Abs(shapeOpacity - latteOpacity) < (byte.MaxValue / 2))
+        {
+          success += 1;
+        }
+        total += 1;
+      }
+    }
+    return Mathf.Sqrt((float)success / (float)total); // sqrt to help the player :D
+  }
+
+  private float ComputeTip(float accuracy)
+  {
+    return Mathf.Pow(accuracy * 2, 4) / 6;
+  }
+
+  private void UpdateProfits()
+  {
+    float accuracy = ComputeAccuracy();
+    if (accuracy >= gameSettings.accuracyThreshold)
+    {
+      float profitIncrement = gameSettings.latteBasePrice;
+      float tipIncrement = ComputeTip(accuracy);
+      baseProfit += profitIncrement;
+      tips += tipIncrement;
+      AudioManager.instance.Play("coins");
+      uIManager.DropProfit(profitIncrement, tipIncrement);
+      uIManager.DisplayScore(baseProfit, tips);
+    }
+  }
+
+  private void ReinitialiseCoffee()
+  {
+    m_milknessGrid = new byte[gameSettings.milknessGridSize, gameSettings.milknessGridSize];
+    latteRenderer.ClearTexture();
+  }
+}
