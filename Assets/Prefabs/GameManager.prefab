@@ -946,7 +946,7 @@ MonoBehaviour:
     accuracyThreshold: 0.6
     milknessGridSize: 32
     dropCooldownSeconds: 0.001
-    dropIntensity: 4
+    dropIntensity: 10
     dropSizeFactor: 3
     latteBasePrice: 2.49
     serveCooldownSeconds: 2
@@ -984,7 +984,7 @@ MonoBehaviour:
   rockingIntervalMax: 3
   shakingIntervalMin: 6
   shakingIntervalMax: 20
-  shakingDurationMin: 1
+  shakingDurationMin: 1.5
   shakingDurationMax: 2
   shakingAmplitude: 0.1
 --- !u!114 &6347405972052061857

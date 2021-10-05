@@ -10,7 +10,7 @@ public class GameSettings
   public float accuracyThreshold = 0.6f;
   public int milknessGridSize = 32;
   public float dropCooldownSeconds = 0.001f; // How often the latte data is updated
-  public byte dropIntensity = 4; // How intense is each drop
+  public byte dropIntensity = 10; // How intense is each drop
   public int dropSizeFactor = 3; // A scalar controlling the maximum size of each drop
   public float latteBasePrice = 2.49f; // The price of a latte in pounds
   public float serveCooldownSeconds = 2f;
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
   public float remainingTime { get; private set; } = 120f;
   public bool isPlaying { get => gameState == GameState.Playing; }
   public GameState gameState { get; private set; } = GameState.Menu;
+  public string[] failServeSounds = new string[]{ "angry-1", "angry-2", "angry-3" };
   private Vector2 m_scale = new Vector2(1f, 1f);
   private byte[,] m_milknessGrid;
   private float m_nextDropTimestamp = 0f;
@@ -216,6 +217,10 @@ public class GameManager : MonoBehaviour
       AudioManager.instance.Play("coins");
       uIManager.DropProfit(profitIncrement, tipIncrement);
       uIManager.DisplayScore(baseProfit, tips);
+    }
+    else
+    {
+        AudioManager.instance.PlayRandom(failServeSounds);
     }
   }
 

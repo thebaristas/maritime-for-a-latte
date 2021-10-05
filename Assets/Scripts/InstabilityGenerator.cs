@@ -12,7 +12,7 @@ public class InstabilityGenerator : MonoBehaviour
   [Header("Shaking Settings")]
   public float shakingIntervalMin = 6f;
   public float shakingIntervalMax = 20f;
-  public float shakingDurationMin = 1f;
+  public float shakingDurationMin = 1.5f;
   public float shakingDurationMax = 2f;
   public float shakingAmplitude = 0.1f;
 

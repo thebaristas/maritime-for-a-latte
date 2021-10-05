@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 
@@ -53,7 +52,7 @@ public class AudioManager : MonoBehaviour
 
   public void Play(string name)
   {
-    Sound s = Array.Find(sounds, sound => sound.name == name);
+    Sound s = System.Array.Find(sounds, sound => sound.name == name);
     if (s.name == "")
     {
       Debug.LogWarning("Sound not found: " + name);
@@ -68,9 +67,14 @@ public class AudioManager : MonoBehaviour
     }
   }
 
+  public void PlayRandom(string[] names)
+  {
+    Play(names[Random.Range(0, names.Length)]);
+  }
+
   public void Pause(string name)
   {
-    Sound s = Array.Find(sounds, sound => sound.name == name);
+    Sound s = System.Array.Find(sounds, sound => sound.name == name);
     if (s.name == "")
     {
       Debug.LogWarning("Sound not found: " + name);
@@ -80,7 +84,7 @@ public class AudioManager : MonoBehaviour
 
   public void Stop(string name)
   {
-    Sound s = Array.Find(sounds, sound => sound.name == name);
+    Sound s = System.Array.Find(sounds, sound => sound.name == name);
     if (s.name == "")
     {
       Debug.LogWarning("Sound not found: " + name);
