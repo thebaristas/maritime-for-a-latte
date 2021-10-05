@@ -2,7 +2,7 @@
 
 A 2D game created by @thebaristas for the 2021 [Ludum Dare 49](https://ldjam.com/) game jam based on the theme "Unstable".
 
-![Screenshot](Docs/screenshot.png)
+![Cover](Docs/cover.png)
 
 ## Try it out
 
