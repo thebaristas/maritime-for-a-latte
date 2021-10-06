@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
   public float remainingTime { get; private set; } = 120f;
   public bool isPlaying { get => gameState == GameState.Playing; }
   public GameState gameState { get; private set; } = GameState.Menu;
-  public string[] failServeSounds = new string[]{ "angry-1", "angry-2", "angry-3" };
+  public string[] failServeSounds = new string[] { "angry-1", "angry-2", "angry-3" };
+  private HighscoreManager highscoreManager;
   private Vector2 m_scale = new Vector2(1f, 1f);
   private byte[,] m_milknessGrid;
   private float m_nextDropTimestamp = 0f;
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
     uIManager.DisplayScore(baseProfit, tips);
     m_servingTimer = gameSettings.serveCooldownSeconds;
     m_playedTickSound = false;
+    highscoreManager = GetComponent<HighscoreManager>();
   }
 
   // Update is called once per frame
@@ -140,6 +142,7 @@ public class GameManager : MonoBehaviour
   {
     gameState = GameState.GameOver;
     AudioManager.instance.Play("bell");
+    highscoreManager.AddScore(baseProfit + tips);
     uIManager.UpdateDisplay();
   }
 
@@ -220,7 +223,7 @@ public class GameManager : MonoBehaviour
     }
     else
     {
-        AudioManager.instance.PlayRandom(failServeSounds);
+      AudioManager.instance.PlayRandom(failServeSounds);
     }
   }
 

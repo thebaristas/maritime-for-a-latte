@@ -906,6 +906,7 @@ GameObject:
   - component: {fileID: 6994703386404413675}
   - component: {fileID: 8166477355727679129}
   - component: {fileID: 6347405972052061857}
+  - component: {fileID: 1050791712548590497}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -954,6 +955,10 @@ MonoBehaviour:
   latteRenderer: {fileID: 6994703386404413675}
   shapeManager: {fileID: 8016862362786476245}
   uIManager: {fileID: 0}
+  failServeSounds:
+  - angry-1
+  - angry-2
+  - angry-3
 --- !u!114 &6994703386404413675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,6 +1077,18 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+--- !u!114 &1050791712548590497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445183447837224086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f5d059488642f4ba9d76a691acbd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7650807160831808072
 GameObject:
   m_ObjectHideFlags: 0
