@@ -18,7 +18,7 @@ public class UITutotialManager : MonoBehaviour
 
 The more accurate your art, the more the passengers will tip!";
         # if UNITY_IOS || UNITY_ANDROID
-            m_tutorialText.text = string.Format(tutorialTextTemplate, "by touching the screen", "by pressing \"Sell\" button");
+            m_tutorialText.text = string.Format(tutorialTextTemplate, "by touching the screen", "by pressing the *Serve* button");
         # else
             m_tutorialText.text = string.Format(tutorialTextTemplate, "with *Click*", "with *Space*");
         # endif

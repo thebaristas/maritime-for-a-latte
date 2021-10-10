@@ -543,7 +543,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sell
+  m_Text: Serve
 --- !u!1 &2572786652196549628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 256
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
