@@ -9,20 +9,6 @@ public class LatteRenderer : MonoBehaviour {
     private readonly Color32 c_backgroundColour = new Color32(0, 0, 0, 0);
     private readonly Color32 c_milkColour = new Color32(240, 230, 190, 240);
 
-    public void RenderLatte(byte[,] array)
-    {
-        ClearTexture();
-        int maxX = array.GetLength(0) - 1, maxY = array.GetLength(1) - 1;
-        for (int x = 0; x <= maxX; x++)
-        {
-            for (int y = 0; y <= maxY; y++)
-            {
-                DrawCell(x, y, maxX, maxY, array[x, y]);
-            }
-        }
-        texture.Apply();
-    }
-
     public void ClearTexture()
     {
         Color32[] resetColourArray = texture.GetPixels32();
@@ -33,6 +19,17 @@ public class LatteRenderer : MonoBehaviour {
         }
 
         texture.SetPixels32(resetColourArray);
+        texture.Apply();
+    }
+
+    public void DrawDroplet(int x, int y, int maxX, int maxY, byte intensity)
+    {
+        int cX = TextureTransform(x, maxX, texture.width), cY = TextureTransform(y, maxY, texture.height);
+        if (intensity > 0)
+        {
+            DrawCircle(c_milkColour, cX, cY, ComputeRadius(intensity));
+        }
+        texture.Apply();
     }
 
     private int TextureTransform(int val, int maxVal, int textureVal)
@@ -43,15 +40,6 @@ public class LatteRenderer : MonoBehaviour {
     private int ComputeRadius(byte intensity)
     {
         return (int) Mathf.Sqrt(GameManager.instance.gameSettings.dropSizeFactor * intensity);
-    }
-
-    private void DrawCell(int x, int y, int maxX, int maxY, byte intensity)
-    {
-        int cX = TextureTransform(x, maxX, texture.width), cY = TextureTransform(y, maxY, texture.height);
-        if (intensity > 0)
-        {
-            DrawCircle(c_milkColour, cX, cY, ComputeRadius(intensity));
-        }
     }
 
     private void DrawCircle(Color32 colour, int x, int y, int radius)

@@ -804,7 +804,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 100, y: 100}
+  m_Size: {x: 50, y: 50}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -945,8 +945,8 @@ MonoBehaviour:
     gameDuration: 120
     accuracyThreshold: 0.6
     milknessGridSize: 32
-    dropCooldownSeconds: 0.001
-    dropIntensity: 10
+    dropCooldownSeconds: 0.017
+    dropIntensity: 15
     dropSizeFactor: 3
     latteBasePrice: 2.49
     serveCooldownSeconds: 2
@@ -954,6 +954,10 @@ MonoBehaviour:
   latteRenderer: {fileID: 6994703386404413675}
   shapeManager: {fileID: 8016862362786476245}
   uIManager: {fileID: 0}
+  failServeSounds:
+  - angry-1
+  - angry-2
+  - angry-3
 --- !u!114 &6994703386404413675
 MonoBehaviour:
   m_ObjectHideFlags: 0
