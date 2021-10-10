@@ -9,8 +9,8 @@ public class GameSettings
   public float gameDuration = 120f;
   public float accuracyThreshold = 0.6f;
   public int milknessGridSize = 32;
-  public float dropCooldownSeconds = 0.001f; // How often the latte data is updated
-  public byte dropIntensity = 10; // How intense is each drop
+  public float dropCooldownSeconds = 0.017f; // How often the latte data is updated
+  public byte dropIntensity = 15; // How intense is each drop
   public int dropSizeFactor = 3; // A scalar controlling the maximum size of each drop
   public float latteBasePrice = 2.49f; // The price of a latte in pounds
   public float serveCooldownSeconds = 2f;
@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     uIManager.DisplayScore(baseProfit, tips);
     m_servingTimer = gameSettings.serveCooldownSeconds;
     m_playedTickSound = false;
+    Application.targetFrameRate = 1000;
   }
 
   // Update is called once per frame
@@ -83,7 +84,6 @@ public class GameManager : MonoBehaviour
           m_playedTickSound = true;
           AudioManager.instance.Play("tick-tock");
         }
-        latteRenderer.RenderLatte(m_milknessGrid);
         remainingTime -= Time.deltaTime;
         m_servingTimer -= Time.deltaTime;
         uIManager.DisplayTime(remainingTime);
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
     baseProfit = 0f;
     tips = 0f;
     uIManager.DisplayScore(baseProfit, tips);
-    ReinitialiseCoffee();
+    InitialiseCoffee();
     gameState = GameState.Playing;
     uIManager.UpdateDisplay();
     m_playedTickSound = false;
@@ -155,11 +155,14 @@ public class GameManager : MonoBehaviour
       Vector2 pos = playerManager.transform.position - transform.position;
       int x = Mathf.FloorToInt(pos.x * gameSettings.milknessGridSize / m_scale.x);
       int y = Mathf.FloorToInt(pos.y * gameSettings.milknessGridSize / m_scale.y);
+      int maxX, maxY;
+      maxX = maxY = gameSettings.milknessGridSize - 1;
 
       if (x >= 0 && x < gameSettings.milknessGridSize && y >= 0 && y < gameSettings.milknessGridSize)
       {
         int newMilkness = m_milknessGrid[x, y] + gameSettings.dropIntensity;
-        m_milknessGrid[x, y] = (byte)Mathf.Min(newMilkness, byte.MaxValue);
+        m_milknessGrid[x, y] = (byte) Mathf.Min(newMilkness, byte.MaxValue);
+        latteRenderer.DrawDroplet(x, y, maxX, maxY, m_milknessGrid[x, y]);
       }
 
       m_nextDropTimestamp = Time.time + gameSettings.dropCooldownSeconds;
@@ -174,7 +177,7 @@ public class GameManager : MonoBehaviour
       AudioManager.instance.Play("slide-cup");
       UpdateProfits();
       shapeManager.ChangeSpriteRandomly();
-      ReinitialiseCoffee();
+      InitialiseCoffee();
     }
   }
 
@@ -224,7 +227,7 @@ public class GameManager : MonoBehaviour
     }
   }
 
-  private void ReinitialiseCoffee()
+  private void InitialiseCoffee()
   {
     m_milknessGrid = new byte[gameSettings.milknessGridSize, gameSettings.milknessGridSize];
     latteRenderer.ClearTexture();
