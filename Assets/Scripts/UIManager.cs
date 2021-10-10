@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public Text timeText;
     public GameObject profit;
     public GameObject time;
+    public UISubmitButtonManager submitButtonManager;
     public GameObject overlayBackground;
     public UIOverlayManager overlay;
     public RectTransform profitImageTransform;
@@ -87,11 +88,13 @@ public class UIManager : MonoBehaviour
 
     public void DisplayInGameUI(bool isDisplayed)
     {
-        if (profit != null && time != null)
-        {
-            profit.SetActive(isDisplayed);
-            time.SetActive(isDisplayed);
-            dropText.gameObject.SetActive(isDisplayed);
-        }
+        profit.SetActive(isDisplayed);
+        time.SetActive(isDisplayed);
+        dropText.gameObject.SetActive(isDisplayed);
+        # if UNITY_IOS || UNITY_ANDROID
+            submitButtonManager.gameObject.SetActive(isDisplayed);
+        # else
+            submitButtonManager.gameObject.SetActive(false);
+        #endif
     }
 }
